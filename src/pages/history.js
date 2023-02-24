@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-function App() {
+function History() {
   const [data, setData] = useState(null);
   const [coupons, setCoupons] = useState(null);
   const currentDate = new Date().toLocaleDateString('pt-PT').split('/').join('.');
-  let today = new Date().toLocaleDateString();
-  today = today.replace(/\//g, "-");
+  const today = new Date();
 
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Connection: 'keep-alive',
-      'X-RapidAPI-Key': 'f91afe5e6dmshe61a832eddd9b76p1ecdd6jsnef3729322ade',
+      'X-RapidAPI-Key': 'e734dbcf78msh009a1346b3596d6p1b5dc3jsn450f7106833f',
       'X-RapidAPI-Host': 'daily-betting-tips.p.rapidapi.com'
     }
   };
@@ -31,20 +30,13 @@ function App() {
     const fetchCoupons = async () => {
       try {
         const response = await fetch(`https://daily-betting-tips.p.rapidapi.com/daily-betting-tip-api/items/daily_betting_coupons?sort=-id`, options);
-        let coupons = await response.json();
-        coupons = coupons.data;
-        const filteredArray = coupons.filter(obj => {
-          const objDate = obj.coupon_date_time.substring(0, 10);
-          return objDate === today;
-        });
-        setCoupons(filteredArray);
+        const coupons = await response.json();
+        setCoupons(coupons);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
-    fetchCoupons();
 
   }, []);
 
@@ -131,7 +123,7 @@ function App() {
           <>
           <h2 className="text-xl font-bold text-gray-800 mt-8">Premium Coupons</h2>
           <div className="mt-4 md:grid md:grid-cols-4 md:gap-4">
-            {coupons.map(coupon => (
+            {coupons.data.map(coupon => (
               <div key={coupon.id} className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h5 className="text-lg font-bold leading-none text-gray-800 dark:text-white">{coupon.coupon_name}</h5>
@@ -169,4 +161,4 @@ function App() {
   );
 }
 
-export default App;
+export default History;
