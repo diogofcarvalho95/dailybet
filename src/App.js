@@ -13,7 +13,7 @@ function App() {
     headers: {
       'Content-Type': 'application/json',
       Connection: 'keep-alive',
-      'X-RapidAPI-Key': '426a15379dmsh375592baa278c0fp1d1434jsn33522d3621e0',
+      'X-RapidAPI-Key': '15dcd34db8msh6f27f7dd9c3c594p14a769jsn219c3d46176e',
       'X-RapidAPI-Host': 'daily-betting-tips.p.rapidapi.com'
     }
   };
@@ -48,6 +48,8 @@ function App() {
     fetchCoupons();
 
   }, []);
+
+  console.log(data);
 
   return (
     <>
